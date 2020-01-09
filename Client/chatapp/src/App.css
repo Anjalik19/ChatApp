@@ -24,18 +24,6 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-.loginContainer{
-  display: flex;
-  justify-content: center;
-}
-.login-page {
-  width: 360px;
-  padding: 8% 0 0;
-  margin: auto;
-}
 
 @keyframes App-logo-spin {
   from {
@@ -47,11 +35,28 @@
 }
 .loginCard
 {
-  justify-content: center;
-  background-color:burlywood;
+  justifyContent: 'center';
+  width: '30em',;
+  height: '70vh'; 
+  marginTop: '100px';
+  backgroundColor: '#FFEFD5';
 }
-.btn
+.check
 {
-  justify-content: center;
-  background-color: blue;
+  marginTop: '10px';
+  marginRight: "80px";
+}
+.button
+{
+  marginTop: "10px";
+  marginBottom: "20px"; 
+}
+.grid
+{
+  marginTop: "10px";
+  marginBottom: "20px";
+}
+.form-group
+{
+  marginBottom: '10px';
 }

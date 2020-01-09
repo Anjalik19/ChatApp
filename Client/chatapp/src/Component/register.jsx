@@ -1,81 +1,107 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { Card, TextField,Link } from '@material-ui/core'
-
-const initialState = {
-    name: '',
-    email: '',
-    password: '',
-    password_confirm: '',
-    nameError: '',
-    emailError: '',
-    passwordError: '',
-}
+import { Card, TextField, Link } from '@material-ui/core'
 
 class register extends Component {
+    constructor() {
+        super();
+        this.state = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            password: '',
+            mobileNo: '',
+            confirmPassword: '',
+        };
 
-    state = initialState;
+        this.handleChangeName = this.handleChangeName.bind(this);
+        this.handleChangeLastName = this.handleChangeLastName.bind(this);
+        this.handleChangeEmail = this.handleChangeEmail.bind(this);
+        this.handleChangeMobileNo = this.handleChangeMobileNo.bind(this);
+        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-
-    handleChangeName=event =>
-    {
+    handleChangeName = event => {
         this.setState({ name: event.target.value });
     };
 
 
-    handleChangeEmail=event=>
-    {
+    handleChangeLastName = event => {
+        this.setState({ lastname: event.target.value });
+    };
+
+
+    handleChangeEmail = event => {
         this.setState({ email: event.target.value });
     };
 
+
+    handleChangeMobileNo = event => {
+        this.setState({ mobileNo: event.target.value });
+    };
+
+
     handleChangePassword = event => {
-        this.setState({password: event.target.value,
+        this.setState({
+            password: event.target.value,
         });
     };
 
-    
-   /* handleConfirmPassword = event => {
-        if (event.handleConfirmPassword !== event.handleChangePassword) {
-          console.log('password dosnot match');
-        }
-      };
-*/
-    validate = () => 
-    {
+    handleChangeConfirmPassword = event => {
+        this.setState({ confirmPassword: event.target.value });
+    };
+
+
+    validate = () => {
         let nameError = "";
+        let lastNameError = "";
         let emailError = "";
+        let mobileNoError = "";
         let passwordError = "";
-        if(!this.state.password)
-        {
-            passwordError="password cannot be empty";
-        }
+        let confirmPasswordError = "";
+
+
         if (!this.state.name) {
-            nameError = "name cannot be empty";
+            nameError = "* name cannot be empty";
         }
+
+        if (!this.state.lastNameError) {
+            lastNameError = "* Last name cannot be empty";
+        }
+
         if (!this.state.email.includes('@')) {
-            emailError = 'inavlid email';
+            emailError = '* inavlid email';
+            
         }
-        if (emailError || nameError || passwordError) {
-            this.setState({ emailError, nameError,passwordError });
+
+
+        if (!this.state.mobileNo) {
+            mobileNoError = "* Mobile Number cannot be empty";
+            
+        }
+
+        if (!this.state.password) {
+            passwordError = "* password cannot be empty";
+        }
+        if (emailError || nameError || passwordError || mobileNoError || lastNameError || confirmPasswordError) {
+            this.setState({ emailError, nameError, passwordError, mobileNoError, lastNameError, confirmPasswordError });
             return false;
         }
         return true;
     }
 
-    
-    handleSubmit = event => 
-    {
+    handleSubmit(event) {
         event.preventDefault();
         const isValid = this.validate();
         if (isValid) {
             console.log(this.state)
-            this.handleSubmit(initialState);
         }
     };
 
 
-    handleRegister = () =>
-    {
+    handleRegister = () => {
         this.props.history.push('/login')
     }
 
@@ -85,11 +111,11 @@ class register extends Component {
             <form onSubmit={this.handleSubmit}>
                 <div className="login_container">
                     <center>
-                        <Card style={{ justifyContent: 'center', width: '25em', height: '70vh', marginTop: '60px', backgroundColor: '#FFEFD5' }}>
+                        <Card style={{ justifyContent: 'center', width: '25em', height: '75vh', marginTop: '60px', backgroundColor: '#FFEFD5' }}>
 
                             <div style={{ marginTop: '50px' }}>
                                 <h2>Registration</h2>
-                                </div>
+                            </div>
 
 
                             <div className="form-group" style={{ marginBottom: '10px' }}>
@@ -97,15 +123,30 @@ class register extends Component {
                                     type="text"
                                     placeholder="Name"
                                     value={this.state.name}
-                                    onChange={(event) => this.handleChangeName(event)}
+                                    onChange={this.handleChangeName}
                                     name="name"
                                 />
                                 <div style={{ fontSize: 12, color: 'red' }}>
                                     {this.state.nameError}
                                 </div>
-
-                                
                             </div>
+
+
+                            <div className="form-group" style={{ marginBottom: '10px' }}>
+                                <TextField id="standard-basic"
+                                    type="text"
+                                    placeholder="Last Name"
+                                    value={this.state.lastname}
+                                    onChange={this.handleChangeLastName}
+                                />
+                                <div style={{ fontSize: 12, color: 'red' }}>
+                                    {this.state.lastNameError}
+                                </div>
+
+
+                            </div>
+
+
                             <div className="form-group" style={{ marginBottom: '10px' }}>
                                 <TextField id="standard-basic"
                                     type="email"
@@ -121,8 +162,24 @@ class register extends Component {
 
                             <div className="form-group" style={{ marginBottom: '10px' }}>
                                 <TextField id="standard-basic"
+                                    type="mobileNo"
+                                    placeholder="Mobile Number"
+                                    value={this.state.mobileNo}
+                                    onChange={this.handleChangeMobileNo}
+                                />
+                                <div style={{ fontSize: 12, color: 'red' }}>
+                                    {this.state.mobileNoError}
+                                </div>
+                            </div>
+
+
+
+                            <div className="form-group" style={{ marginBottom: '10px' }}>
+                                <TextField id="standard-basic"
                                     type="password"
                                     placeholder="Password"
+                                    value={this.state.password}
+                                    onChange={this.handleChangePassword}
                                 />
                                 <div style={{ fontSize: 12, color: 'red' }}>
                                     {this.state.passwordError}
@@ -130,22 +187,25 @@ class register extends Component {
                             </div>
 
 
-                            <div className="form-group" style={{ marginBottom: '60px' }}>
+                            <div className="form-group" style={{ marginBottom: '40px' }}>
                                 <TextField id="standard-basic"
                                     type="password"
-                                    placeholder="Confirm Password"
-                                    className="form-control"
+                                    placeholder="Re-Write Password"
+                                    value={this.state.confirmPassword}
+                                    onChange={this.handleChangeConfirmPassword}
 
                                 />
+                                <div style={{ fontSize: 12, color: 'red' }}>
+                                    {this.state.confirmPasswordError}
+                                </div>
                             </div>
-
 
                             <div className="form-group">
                                 <button type="submit" style={{ marginRight: '50px' }}>
                                     Register User
                                  </button>
 
-                                <button type="submit" > 
+                                <button type="submit" >
                                     Cancel<Link href="/login" ></Link>
                                 </button>
                             </div>
