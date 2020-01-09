@@ -82,8 +82,8 @@ class register extends Component {
             
         }
 
-        if (!this.state.password) {
-            passwordError = "* password cannot be empty";
+        if (!this.state.password.length<6) {
+            passwordError = "* password length should be greater than 6";
         }
         if (emailError || nameError || passwordError || mobileNoError || lastNameError || confirmPasswordError) {
             this.setState({ emailError, nameError, passwordError, mobileNoError, lastNameError, confirmPasswordError });
@@ -201,7 +201,7 @@ class register extends Component {
                             </div>
 
                             <div className="form-group">
-                                <button type="submit" style={{ marginRight: '50px' }}>
+                                <button type="submit" onClick={this.handleClick} style={{ marginRight: '50px' }}>
                                     Register User
                                  </button>
 

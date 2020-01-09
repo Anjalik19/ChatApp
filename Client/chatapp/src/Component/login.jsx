@@ -4,8 +4,8 @@ import { Card, TextField, Button, Checkbox } from '@material-ui/core'
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 export class login extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             email: '',
             password: '',
@@ -13,6 +13,7 @@ export class login extends Component {
         }
         this.handleChangeEmail = this.handleChangeEmail.bind(this);
     }
+   
     handleChangeEmail=event=>
     {
         this.setState({ email: event.target.value });
@@ -82,13 +83,13 @@ export class login extends Component {
                             </Button>
                         </div>
 
-                        <Grid className="grid" style={{ marginTop: "10px", marginBottom: "20px" }}>
+                        <Grid style={{ marginTop: "10px", marginBottom: "20px" }}>
                             Don't have an account  <Link href="/register" >Sign Up</Link>
                         </Grid>
 
                         <Grid>
                             <Link href="" variant="body2">
-                                Forgot password?
+                                Forgot password?<Link href="/forgetPassword"></Link>
                                  </Link>
                         </Grid>
                     </Card>
