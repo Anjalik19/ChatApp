@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Card, TextField, Link } from '@material-ui/core'
-
-class register extends Component {
+import controller from '../controller/userController'
+class Register extends Component {
     constructor() {
         super();
         this.state = {
@@ -10,21 +10,11 @@ class register extends Component {
             lastName: '',
             email: '',
             password: '',
-            mobileNo: '',
-            confirmPassword: '',
         };
-
-        this.handleChangeName = this.handleChangeName.bind(this);
-        this.handleChangeLastName = this.handleChangeLastName.bind(this);
-        this.handleChangeEmail = this.handleChangeEmail.bind(this);
-        this.handleChangeMobileNo = this.handleChangeMobileNo.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
-        this.handleChangeConfirmPassword = this.handleChangeConfirmPassword.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChangeName = event => {
-        this.setState({ name: event.target.value });
+        this.setState({ firstname: event.target.value });
     };
 
 
@@ -37,31 +27,15 @@ class register extends Component {
         this.setState({ email: event.target.value });
     };
 
-
-    handleChangeMobileNo = event => {
-        this.setState({ mobileNo: event.target.value });
-    };
-
-
     handleChangePassword = event => {
-        this.setState({
-            password: event.target.value,
-        });
+        this.setState({ password: event.target.value,});
     };
-
-    handleChangeConfirmPassword = event => {
-        this.setState({ confirmPassword: event.target.value });
-    };
-
 
     validate = () => {
         let nameError = "";
         let lastNameError = "";
         let emailError = "";
-        let mobileNoError = "";
         let passwordError = "";
-        let confirmPasswordError = "";
-
 
         if (!this.state.name) {
             nameError = "* name cannot be empty";
@@ -73,20 +47,14 @@ class register extends Component {
 
         if (!this.state.email.includes('@')) {
             emailError = '* inavlid email';
-            
+
         }
 
-
-        if (!this.state.mobileNo) {
-            mobileNoError = "* Mobile Number cannot be empty";
-            
+        if (!this.state.password.length < 6) {
+            passwordError = "* password should be greater tha 6";
         }
-
-        if (!this.state.password.length<6) {
-            passwordError = "* password length should be greater than 6";
-        }
-        if (emailError || nameError || passwordError || mobileNoError || lastNameError || confirmPasswordError) {
-            this.setState({ emailError, nameError, passwordError, mobileNoError, lastNameError, confirmPasswordError });
+        if (emailError || nameError || passwordError || lastNameError ) {
+            this.setState({ emailError, nameError, passwordError, lastNameError });
             return false;
         }
         return true;
@@ -94,7 +62,7 @@ class register extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const isValid = this.validate();
+        let isValid = this.validate();
         if (isValid) {
             console.log(this.state)
         }
@@ -102,7 +70,13 @@ class register extends Component {
 
 
     handleRegister = () => {
-        this.props.history.push('/login')
+            const newUser={
+                firstName:this.state.firstName,
+                lastName:this.state.lastName,
+                password:this.state.password,
+            }
+            controller.Register(newUser)
+               this.props.history.push('/login')
     }
 
 
@@ -159,21 +133,6 @@ class register extends Component {
                                 </div>
                             </div>
 
-
-                            <div className="form-group" style={{ marginBottom: '10px' }}>
-                                <TextField id="standard-basic"
-                                    type="mobileNo"
-                                    placeholder="Mobile Number"
-                                    value={this.state.mobileNo}
-                                    onChange={this.handleChangeMobileNo}
-                                />
-                                <div style={{ fontSize: 12, color: 'red' }}>
-                                    {this.state.mobileNoError}
-                                </div>
-                            </div>
-
-
-
                             <div className="form-group" style={{ marginBottom: '10px' }}>
                                 <TextField id="standard-basic"
                                     type="password"
@@ -205,7 +164,7 @@ class register extends Component {
                                     Register User
                                  </button>
 
-                                <button type="submit" >
+                                <button type="submit" onClick={this.handleSubmit}>
                                     Cancel<Link href="/login" ></Link>
                                 </button>
                             </div>
@@ -217,7 +176,8 @@ class register extends Component {
         )
     }
 }
-export default withRouter(register);
+
+export default withRouter(Register);
 
 
 

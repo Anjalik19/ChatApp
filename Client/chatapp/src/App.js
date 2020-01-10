@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import './App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import login from './Component/login'
-import register from './Component/register'
-import forgetPassword from './Component/forgetPassword'
+import Login from './Component/login'
+import Register from './Component/register'
+import ForgetPassword from './Component/forgetPassword'
 export class App extends Component {
   render() {
     return (
     <Router>
       <Switch>
-        <Route path='/login' component={login}></Route>
-        <Route path='/register' component={register}></Route>
-        <Route path='/forgetPassword' component={forgetPassword}></Route>
+        <Route path='/login' component={Login}></Route>
+        <Route path='/register' component={Register}></Route>
+        <Route path='/forgetPassword' component={ForgetPassword}></Route>
       </Switch>
     </Router>
     )
