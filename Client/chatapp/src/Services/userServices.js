@@ -5,7 +5,7 @@ let services={
     getAllUsers:'/getAllUseres',
     getUserMsg:'/getUserMsg'
 }
-export default withRouter(services);
+export default services;
 
 
 

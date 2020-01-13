@@ -1,9 +1,6 @@
-
 import axios from 'axios';
-import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import services from '../Services/userServices';
-class Controller extends Component{
+let controller={
     register(firstName, lastName, email, password) {
         let data = {
             firstName: firstName,
@@ -20,7 +17,7 @@ class Controller extends Component{
             .catch(error => {
                 console.log("registration failed", error);
             })
-    }
+    },
     login(email, password) {
         var data = {
             email: email,
@@ -35,7 +32,7 @@ class Controller extends Component{
             .catch(error => {
                 console.log("login failed", error);
             })
-    }
+    },
     forgotPassword(email) {
         var data = {
             email: email,
@@ -49,7 +46,7 @@ class Controller extends Component{
             .catch(error => {
                 console.log("forgot password failed", error);
             })
-    }
+    },
     getAllUseres() {
         return axios.get(services.getAllUsers).then(response => {
             console.log("response", response.data);
@@ -68,4 +65,4 @@ class Controller extends Component{
 
     }
 }
-export default withRouter(Controller);
+export default controller;

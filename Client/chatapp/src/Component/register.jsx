@@ -3,8 +3,8 @@ import { withRouter } from 'react-router-dom';
 import { Card, TextField, Link } from '@material-ui/core'
 import controller from '../controller/userController'
 class Register extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             firstName: '',
             lastName: '',
@@ -68,11 +68,11 @@ class Register extends Component {
         }
     };
 
-
     handleRegister = () => {
             const newUser={
                 firstName:this.state.firstName,
                 lastName:this.state.lastName,
+                email:this.state.email,
                 password:this.state.password,
             }
             controller.Register(newUser)
